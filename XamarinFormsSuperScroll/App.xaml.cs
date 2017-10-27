@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using XamarinFormsSuperScroll.Models;
 
 namespace XamarinFormsSuperScroll
 {
@@ -7,6 +8,7 @@ namespace XamarinFormsSuperScroll
         public App()
         {
             InitializeComponent();
+            DependencyService.Register<DataModel>();
 
             MainPage = new XamarinFormsSuperScrollPage();
         }

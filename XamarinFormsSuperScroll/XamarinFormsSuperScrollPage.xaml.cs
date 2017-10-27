@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using XamarinFormsSuperScroll.ViewModels;
 
 namespace XamarinFormsSuperScroll
 {
@@ -7,6 +8,8 @@ namespace XamarinFormsSuperScroll
         public XamarinFormsSuperScrollPage()
         {
             InitializeComponent();
+
+            BindingContext = new MainViewModel();
         }
     }
 }

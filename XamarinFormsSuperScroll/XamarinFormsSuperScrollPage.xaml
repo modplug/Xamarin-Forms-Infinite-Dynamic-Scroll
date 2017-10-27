@@ -1,4 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:XamarinFormsSuperScroll" x:Class="XamarinFormsSuperScroll.XamarinFormsSuperScrollPage">
-	<Label Text="Welcome to Xamarin Forms!" VerticalOptions="Center" HorizontalOptions="Center" />
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:infiniteScrolling="clr-namespace:InfiniteScrolling;assembly=InfiniteScrolling"
+             x:Class="XamarinFormsSuperScroll.XamarinFormsSuperScrollPage">
+    <Grid Padding="12" RowSpacing="6" ColumnSpacing="6">
+        <Grid.Margin>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS" Value="0, 22, 0, 0" />
+            </OnPlatform>
+        </Grid.Margin>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label Text="Scroll to the bottom of the list to load more." />
+
+        <ActivityIndicator Grid.Column="1" WidthRequest="32" HeightRequest="32" IsRunning="True"
+                           IsVisible="{Binding IsWorking}" />
+
+
+        <StackLayout Grid.Row="1" Grid.ColumnSpan="3" Orientation="Vertical">
+            <SearchBar Text="{Binding SearchText, Mode=TwoWay}" />
+            <!-- a normal list view -->
+            <ListView CachingStrategy="RecycleElement" ItemsSource="{Binding Shows}">
+
+                <!-- the behavior that will enable infinite scrolling -->
+                <ListView.Behaviors>
+                    <infiniteScrolling:InfiniteScrollBehavior IsLoadingMore="{Binding IsWorking}" />
+                </ListView.Behaviors>
+
+                <!-- the row definition -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="12">
+                                <Label Text="{Binding Name}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <!-- the "loading..." view -->
+                <ListView.Footer>
+                    <Grid Padding="6" IsVisible="{Binding IsWorking}">
+                        <!-- set the footer to have a zero height when invisible -->
+                        <Grid.Triggers>
+                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </Trigger>
+                        </Grid.Triggers>
+                        <!-- the loading content -->
+                        <Label Text="Loading..." VerticalOptions="Center" HorizontalOptions="Center" />
+                    </Grid>
+                </ListView.Footer>
+
+            </ListView>
+
+        </StackLayout>
+
+    </Grid>
 </ContentPage>
