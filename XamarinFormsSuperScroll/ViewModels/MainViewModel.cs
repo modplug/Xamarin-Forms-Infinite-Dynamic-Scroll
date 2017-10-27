@@ -33,7 +33,7 @@ namespace XamarinFormsSuperScroll.ViewModels
             Shows.OnError += e => Debug.WriteLine(e.Message);
 
             var searchPredicate = _searchSubject
-                .Throttle(TimeSpan.FromMilliseconds(100))
+                .Throttle(TimeSpan.FromMilliseconds(100)) // Wait 100 ms after last keyboard press before searching
                 .StartWith(string.Empty)
                 .Select(SearchPredicate);
 
@@ -41,8 +41,6 @@ namespace XamarinFormsSuperScroll.ViewModels
                 .ObserveOn(Scheduler.Default)
                 .Filter(searchPredicate)
                 .Sort(SortExpressionComparer<ShowDTO>.Ascending(s => s.Name))
-                .Buffer(TimeSpan.FromMilliseconds(200))
-                .FlattenBufferResult<ShowDTO, int>()
                 .Bind(Shows)
                 .Subscribe();
 
