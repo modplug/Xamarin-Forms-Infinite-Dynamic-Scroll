@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using DynamicData;
+using DynamicData.Aggregation;
 using DynamicData.Binding;
 using Xamarin.Forms;
 using XamarinFormsSuperScroll.Models;
@@ -14,21 +16,20 @@ using XamarinFormsSuperScroll.Transfer;
 
 namespace XamarinFormsSuperScroll.ViewModels
 {
-    public class MainViewModel : AbstractNotifyPropertyChanged
+    public class VirtualizingListViewModel : AbstractNotifyPropertyChanged
     {
-        private readonly DataModel _dataModel;
-
         private readonly Subject<string> _searchSubject = new Subject<string>();
+        private readonly Subject<Unit> _virtualiseSubject = new Subject<Unit>();
 
         private bool _isWorking;
-        private int _pageNumber;
+        private int _previousSize;
         private string _searchText;
 
-        public MainViewModel()
+        public VirtualizingListViewModel()
         {
             IsWorking = true;
 
-            _dataModel = DependencyService.Get<DataModel>();
+            var dataModel = DependencyService.Get<DataModel>();
             Shows.OnLoadMore += OnLoadMore;
             Shows.OnError += e => Debug.WriteLine(e.Message);
 
@@ -37,17 +38,38 @@ namespace XamarinFormsSuperScroll.ViewModels
                 .StartWith(string.Empty)
                 .Select(SearchPredicate);
 
-            _dataModel.Items.Connect()
-                .ObserveOn(Scheduler.Default)
+            var filteredList = dataModel.Items.Connect()
                 .Filter(searchPredicate)
+                .Publish();
+
+            var virtualisePredicate = _virtualiseSubject
+                .StartWith(new List<Unit>())
+                .CombineLatest(filteredList.Count().StartWith(0), (request, count) =>
+                {
+                    var items = count <= 0 ? 0 : count - 1;
+                    var size = _previousSize > items ? items : Math.Min(_previousSize + 20, items);
+                    _previousSize = size;
+                    return new VirtualRequest(0, size);
+                })
+                .DistinctUntilChanged();
+
+            filteredList
                 .Sort(SortExpressionComparer<ShowDTO>.Ascending(s => s.Name))
+                .Virtualise(virtualisePredicate)
+                .ObserveOn(Scheduler.Default)
                 .Bind(Shows)
                 .Subscribe();
 
+            filteredList.Connect();
+
             // Init the list
-            _dataModel.GetMoreItems(_pageNumber)
+            dataModel.GetMoreItems(0)
                 .ToObservable()
                 .Subscribe(s => IsWorking = false);
+
+            _searchSubject.DistinctUntilChanged()
+                .Do(s => _previousSize = 0)
+                .Subscribe();
         }
 
         public bool IsWorking
@@ -77,8 +99,7 @@ namespace XamarinFormsSuperScroll.ViewModels
         private async Task<IEnumerable<ShowDTO>> OnLoadMore()
         {
             IsWorking = true;
-            _pageNumber++;
-            await Task.WhenAll(Task.Delay(1000), _dataModel.GetMoreItems(_pageNumber));
+            _virtualiseSubject.OnNext(Unit.Default);
             IsWorking = false;
             return new List<ShowDTO>();
         }

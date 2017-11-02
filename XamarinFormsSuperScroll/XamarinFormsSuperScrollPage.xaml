@@ -15,7 +15,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -28,7 +28,8 @@
         <StackLayout Grid.Row="1" Grid.ColumnSpan="3" Orientation="Vertical">
             <SearchBar Text="{Binding SearchText, Mode=TwoWay}" />
             <!-- a normal list view -->
-            <ListView CachingStrategy="RecycleElement" ItemsSource="{Binding Shows}">
+            <ListView CachingStrategy="RecycleElement" ItemsSource="{Binding Shows}" SeparatorVisibility="None"
+                      HasUnevenRows="False" RowHeight="45">
 
                 <!-- the behavior that will enable infinite scrolling -->
                 <ListView.Behaviors>

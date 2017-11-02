@@ -9,7 +9,7 @@ namespace XamarinFormsSuperScroll
         {
             InitializeComponent();
 
-            BindingContext = new MainViewModel();
+            BindingContext = new VirtualizingListViewModel();
         }
     }
 }

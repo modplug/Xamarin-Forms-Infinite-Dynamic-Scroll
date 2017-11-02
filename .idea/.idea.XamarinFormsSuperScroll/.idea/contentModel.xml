@@ -1,5 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2017.2/resharper-host/local/Transient/ReSharperHost/v10/SolutionCaches/_XamarinFormsSuperScroll.1877742270.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="Droid" t="IncludeRecursive">
+        <e p="Assets" t="Include">
+          <e p="AboutAssets.txt" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="MainActivity.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AndroidManifest.xml" t="Include" />
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Resources" t="Include">
+          <e p="AboutResources.txt" t="Include" />
+          <e p="drawable" t="Include">
+            <e p="icon.png" t="Include" />
+          </e>
+          <e p="drawable-hdpi" t="Include">
+            <e p="icon.png" t="Include" />
+          </e>
+          <e p="drawable-xhdpi" t="Include">
+            <e p="icon.png" t="Include" />
+          </e>
+          <e p="drawable-xxhdpi" t="Include">
+            <e p="icon.png" t="Include" />
+          </e>
+          <e p="layout" t="Include">
+            <e p="Tabbar.axml" t="Include" />
+            <e p="Toolbar.axml" t="Include" />
+          </e>
+          <e p="Resource.designer.cs" t="Include" />
+          <e p="values" t="Include">
+            <e p="styles.xml" t="Include" />
+          </e>
+        </e>
+        <e p="XamarinFormsSuperScroll.Droid.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="iOS" t="IncludeRecursive">
+        <e p="AppDelegate.cs" t="Include" />
+        <e p="Assets.xcassets" t="Include">
+          <e p="AppIcon.appiconset" t="Include">
+            <e p="Contents.json" t="Include" />
+          </e>
+          <e p="Contents.json" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Entitlements.plist" t="Include" />
+        <e p="Info.plist" t="Include" />
+        <e p="LaunchScreen.storyboard" t="Include" />
+        <e p="Main.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Resources" t="Include" />
+        <e p="XamarinFormsSuperScroll.iOS.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="packages" t="ExcludeRecursive">
+        <e p="Xamarin.Android.Support.Animated.Vector.Drawable.25.4.0.2/proguard" t="Include">
+          <e p="proguard.txt" t="Include" />
+        </e>
+        <e p="Xamarin.Android.Support.Core.UI.25.4.0.2/proguard" t="Include">
+          <e p="proguard.txt" t="Include" />
+        </e>
+        <e p="Xamarin.Android.Support.Design.25.4.0.2/proguard" t="Include">
+          <e p="proguard.txt" t="Include" />
+        </e>
+        <e p="Xamarin.Android.Support.v7.RecyclerView.25.4.0.2/proguard" t="Include">
+          <e p="proguard.txt" t="Include" />
+        </e>
+      </e>
+      <e p="XamarinFormsSuperScroll" t="IncludeRecursive">
+        <e p="App.xaml" t="Include" />
+        <e p="App.xaml.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="InfiniteDynamicScrollCollection.cs" t="Include" />
+        <e p="Models" t="Include">
+          <e p="DataModel.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Transfer" t="Include">
+          <e p="ShowDTO.cs" t="Include" />
+        </e>
+        <e p="ViewModels" t="Include">
+          <e p="MainViewModel.cs" t="Include" />
+        </e>
+        <e p="XamarinFormsSuperScroll.csproj" t="IncludeRecursive" />
+        <e p="XamarinFormsSuperScrollPage.xaml" t="Include" />
+        <e p="XamarinFormsSuperScrollPage.xaml.cs" t="Include" />
+      </e>
+      <e p="XamarinFormsSuperScroll.sln" t="IncludeFlat" />
+    </e>
+  </component>
   <component name="RiderRiderContentModelStore">
     <excludedPaths />
   </component>
